@@ -1,5 +1,4 @@
 .vscode
 personal.md
 *.pt
-*.ipynb_checkpoints
 *.DS_Store
