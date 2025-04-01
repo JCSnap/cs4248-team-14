@@ -25,14 +25,14 @@ train_target_file_tok = path + sys.argv[2]
 
 # Source subword model
 
-source_train_value = '--input='+train_source_file_tok+' --model_prefix=source --vocab_size=10000 --hard_vocab_limit=false --split_digits=true'
+source_train_value = '--input='+train_source_file_tok+' --model_prefix=source --vocab_size=10000 --hard_vocab_limit=false --split_digits=true --user_defined_symbols=__SEP__'
 spm.SentencePieceTrainer.train(source_train_value)
 print("Done, training a SentencepPiece model for the Source finished successfully!")
 
 
 # Target subword model
 
-target_train_value = '--input='+train_target_file_tok+' --model_prefix=target --vocab_size=10000 --hard_vocab_limit=false --split_digits=true'
+target_train_value = '--input='+train_target_file_tok+' --model_prefix=target --vocab_size=10000 --hard_vocab_limit=false --split_digits=true --user_defined_symbols=__SEP__'
 spm.SentencePieceTrainer.train(target_train_value)
 print("Done, training a SentencepPiece model for the Target finished successfully!")
 
