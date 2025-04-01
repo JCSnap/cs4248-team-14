@@ -40,11 +40,11 @@ def split_dataset(segment_no_dev, segment_no_test, source_file, target_file):
 
 
     # Extract Dev set from the main dataset
-    df_dev = df.sample(n = int(segment_no_dev))
+    df_dev = df.sample(n = int(segment_no_dev), random_state=42)
     df_train = df.drop(df_dev.index)
 
     # Extract Test set from the main dataset
-    df_test = df_train.sample(n = int(segment_no_test))
+    df_test = df_train.sample(n = int(segment_no_test), random_state=42)
     df_train = df_train.drop(df_test.index)
 
     # Write the dataframe to two Source and Target files
