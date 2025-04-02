@@ -1,0 +1,1 @@
+code for using the salient words and pseudo docuent metohd
