@@ -2,3 +2,6 @@
 personal.md
 *.pt
 *.DS_Store
+
+CS4248
+wsd/bert-model/model
