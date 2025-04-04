@@ -32,9 +32,27 @@ sp.load(source_model)
 with open(source_raw, encoding='utf-8') as source, open(source_subworded, "w+", encoding='utf-8') as source_subword:
     for line in source:
         line = line.strip()
-        line = sp.encode_as_pieces(line)
         # line = ['<s>'] + line + ['</s>']    # add start & end tokens; optional
-        line = " ".join([token for token in line])
+        tokens = line.strip().split()
+
+        processed_tokens = []
+
+        for token in tokens:
+            if "#" in token:
+                parts = token.split("#")
+                word = parts[0]
+                tag = "#" + "#".join(parts[1:])
+            else:
+                word = token
+                tag = ""
+
+            subwords = sp.encode_as_pieces(word)
+            subwords = [piece + tag for piece in subwords]
+
+            processed_tokens.extend(subwords)
+
+        line = " ".join(processed_tokens)
+
         source_subword.write(line + "\n")
 
 print("Done subwording the source file! Output:", source_subworded)
