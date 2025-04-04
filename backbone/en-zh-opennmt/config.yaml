@@ -33,7 +33,7 @@ tgt_subword_model: target.model
 
 # Where to save the log file and the output models/checkpoints
 log_file: train.log
-save_model: models/model.fren
+save_model: models/model.base
 
 # Stop training if it does not imporve after n validations
 early_stopping: 4
