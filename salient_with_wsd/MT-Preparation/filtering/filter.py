@@ -104,12 +104,6 @@ def prepare(source_file, target_file, source_lang, target_lang, lower=False):
 
     print("--- Rows with Empty Cells Deleted\t--> Rows:", df.shape[0])
 
-
-    # Shuffle the data
-    df = df.sample(frac=1).reset_index(drop=True)
-    print("--- Rows Shuffled\t\t\t--> Rows:", df.shape[0])
-
-
     # Write the dataframe to two Source and Target files
     source_file = source_file+'-filtered.'+source_lang
     target_file = target_file+'-filtered.'+target_lang
