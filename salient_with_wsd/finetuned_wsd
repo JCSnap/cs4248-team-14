@@ -1,0 +1,76 @@
+import torch
+from transformers import BertTokenizer, BertForSequenceClassification, Trainer, TrainingArguments
+from datasets import Dataset
+import nltk
+from nltk.corpus import semcor
+import numpy as np
+import json
+
+nltk.download('semcor')
+
+# Prepare SemCor data
+def prepare_semcor_data(max_senses=1000):
+    sentences = semcor.sents()
+    senses = semcor.tagged_sents(tag='sense')
+    
+    data = {"sentence": [], "label": []}
+    sense_map = {}
+    label_counter = 0
+    
+    for sent, tagged_sent in zip(sentences[:10000], senses[:10000]):  # Limit for demo
+        sentence = " ".join(sent)
+        for chunk in tagged_sent:
+            if isinstance(chunk, nltk.tree.Tree) and chunk.label():
+                word = " ".join(chunk.leaves())
+                sense_key = chunk.label()
+                if sense_key not in sense_map:
+                    if label_counter >= max_senses:
+                        continue
+                    sense_map[sense_key] = label_counter
+                    label_counter += 1
+                data["sentence"].append(f"{sentence} [SEP] {word}")
+                data["label"].append(sense_map[sense_key])
+    
+    return Dataset.from_dict(data), sense_map
+
+# Load tokenizer and model
+tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")
+model = BertForSequenceClassification.from_pretrained("bert-base-uncased", num_labels=1000)
+
+# Prepare dataset
+dataset, sense_map = prepare_semcor_data(max_senses=1000)
+
+def preprocess_function(examples):
+    return tokenizer(examples["sentence"], padding="max_length", truncation=True)
+
+tokenized_dataset = dataset.map(preprocess_function, batched=True)
+tokenized_dataset = tokenized_dataset.rename_column("label", "labels")
+tokenized_dataset.set_format("torch", columns=["input_ids", "attention_mask", "labels"])
+
+train_test = tokenized_dataset.train_test_split(test_size=0.1)
+train_dataset = train_test["train"]
+eval_dataset = train_test["test"]
+
+# Training arguments
+training_args = TrainingArguments(
+    output_dir="./wsd_bert_finetuned",
+    evaluation_strategy="epoch",
+    per_device_train_batch_size=8,
+    num_train_epochs=3,
+    save_strategy="epoch",
+    load_best_model_at_end=True,
+)
+
+trainer = Trainer(
+    model=model,
+    args=training_args,
+    train_dataset=train_dataset,
+    eval_dataset=eval_dataset,
+)
+
+trainer.train()
+model.save_pretrained("wsd_bert_finetuned")
+tokenizer.save_pretrained("wsd_bert_finetuned")
+
+with open("sense_map.json", "w") as f:
+    json.dump(sense_map, f)
