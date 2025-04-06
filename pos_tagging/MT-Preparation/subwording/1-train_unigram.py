@@ -23,18 +23,21 @@ train_target_file_tok = path + sys.argv[2]
 # decrease --vocab size or --hard_vocab_limit=false, which automatically shrink the vocab size.
 
 
-# Source subword model
-
-source_train_value = ('--input='+train_source_file_tok+
-                      ' --model_prefix=source --vocab_size=10000 --hard_vocab_limit=false --split_digits=true'
-                      ' --user_defined_symbols=__SEP__,_VERB,_NOUN,_PRON,_ADV,_PUNCT,_DET,_AUX,_ADJ,_PART,_ADP,_CCONJ,_PROPN')
+# Source subword model (English with tags)
+source_train_value = (
+    f'--input={train_source_file_tok} --model_prefix=source --vocab_size=20000 '
+    f'--hard_vocab_limit=false --split_digits=true '
+    f'--user_defined_symbols=__SEP__'  # Remove _VERB, _NOUN, etc.
+    f'--byte_fallback=true'  # Fallback for rare characters
+)
 spm.SentencePieceTrainer.train(source_train_value)
-print("Done, training a SentencepPiece model for the Source finished successfully!")
+print("Done, training a SentencePiece model for the Source finished successfully!")
 
-
-# Target subword model
-
-target_train_value = '--input='+train_target_file_tok+' --model_prefix=target --vocab_size=10000 --hard_vocab_limit=false --split_digits=true --user_defined_symbols=__SEP__'
+# Target subword model (Chinese)
+target_train_value = (
+    f'--input={train_target_file_tok} --model_prefix=target --vocab_size=10000 '
+    f'--hard_vocab_limit=false --split_digits=true '
+    f'--user_defined_symbols=__SEP__'
+)
 spm.SentencePieceTrainer.train(target_train_value)
-print("Done, training a SentencepPiece model for the Target finished successfully!")
-
+print("Done, training a SentencePiece model for the Target finished successfully!")
