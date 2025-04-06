@@ -3,13 +3,14 @@ from nltk.translate.meteor_score import meteor_score
 from nltk.translate.bleu_score import sentence_bleu, SmoothingFunction
 from nltk.metrics.distance import edit_distance
 from collections import defaultdict
+import os
 import pandas as pd
 import jieba
 
 nltk.download('punkt')
 
 
-def save_analysis_to_parquet(df_sentences, df_mismatches, output_dir):
+def save_analysis_to_parquet(df_sentences, df_mismatches, output_dir, salient=False):
     """
     Saves the analysis results to parquet files.
 
@@ -17,12 +18,20 @@ def save_analysis_to_parquet(df_sentences, df_mismatches, output_dir):
     - df_sentences: DataFrame containing sentence-level analysis.
     - df_mismatches: DataFrame containing word mismatch counts.
     - output_dir: Directory to save the parquet files.
+    - salient: Boolean flag to prefix filenames with 'salient_'.
     """
-    df_sentences.to_parquet(f'{output_dir}/sentence_analysis.parquet')
-    df_mismatches.to_parquet(f'{output_dir}/word_mismatch_analysis.parquet')
+    os.makedirs(output_dir, exist_ok=True)
+    prefix = "salient_" if salient else ""
+    sentences_file = os.path.join(
+        output_dir, f"{prefix}sentence_analysis.parquet")
+    mismatches_file = os.path.join(
+        output_dir, f"{prefix}word_mismatch_analysis.parquet")
+
+    df_sentences.to_parquet(sentences_file)
+    df_mismatches.to_parquet(mismatches_file)
 
 
-def analyze_translations(en_path, zh_trans_path, zh_correct_path):
+def analyze_translations(en_path, zh_trans_path, zh_correct_path, salient=False):
     """
     Analyzes translations using BLEU, METEOR and edit distance metrics.
 
@@ -30,6 +39,7 @@ def analyze_translations(en_path, zh_trans_path, zh_correct_path):
     - en_path: Path to the English source sentences.
     - zh_trans_path: Path to the translated Chinese sentences.
     - zh_correct_path: Path to the reference Chinese translations.
+    - salient: Boolean flag that is passed to the parquet saving function.
 
     Returns:
     - df_sentences: DataFrame containing sentence-level analysis.
@@ -78,7 +88,8 @@ def analyze_translations(en_path, zh_trans_path, zh_correct_path):
     df_mismatches.sort_values(
         by='MismatchCount', ascending=False, inplace=True)
 
-    save_analysis_to_parquet(df_sentences, df_mismatches, './analysis_results')
+    save_analysis_to_parquet(df_sentences, df_mismatches,
+                             './analysis_results', salient=salient)
 
     return df_sentences, df_mismatches
 
