@@ -15,10 +15,16 @@ import sys
 # from IPython.display import display
 
 
-def split_dataset(segment_no_dev, segment_no_test, source_file, target_file):
+def split_dataset(segment_no_dev, segment_no_test, source_file, source2_file, target_file):
 
     df_source = pd.read_csv(source_file,
                             names=['Source'],
+                            sep="\0",
+                            quoting=csv.QUOTE_NONE,
+                            skip_blank_lines=False,
+                            on_bad_lines="skip")
+    df_source2 = pd.read_csv(source2_file,
+                            names=['Source2'],
                             sep="\0",
                             quoting=csv.QUOTE_NONE,
                             skip_blank_lines=False,
@@ -29,7 +35,7 @@ def split_dataset(segment_no_dev, segment_no_test, source_file, target_file):
                             quoting=csv.QUOTE_NONE,
                             skip_blank_lines=False,
                             on_bad_lines="skip")
-    df = pd.concat([df_source, df_target], axis=1)  # Join the two dataframes along columns
+    df = pd.concat([df_source, df_source2, df_target], axis=1)  # Join the two dataframes along columns
     print("Dataframe shape:", df.shape)
 
 
@@ -49,19 +55,25 @@ def split_dataset(segment_no_dev, segment_no_test, source_file, target_file):
 
     # Write the dataframe to two Source and Target files
     source_file_train = source_file+'.train'
+    source2_file_train = source2_file+'.train'
     target_file_train = target_file+'.train'
 
     source_file_dev = source_file+'.dev'
+    source2_file_dev = source2_file+'.dev'
     target_file_dev = target_file+'.dev'
 
     source_file_test = source_file+'.test'
+    source2_file_test = source2_file+'.test'
     target_file_test = target_file+'.test'
 
     df_dic_train = df_train.to_dict(orient='list')
 
-
     with open(source_file_train, "w") as sf:
         sf.write("\n".join(line for line in df_dic_train['Source']))
+        sf.write("\n") # end of file newline
+        
+    with open(source2_file_train, "w") as sf:
+        sf.write("\n".join(line for line in df_dic_train['Source2']))
         sf.write("\n") # end of file newline
 
     with open(target_file_train, "w") as tf:
@@ -75,6 +87,10 @@ def split_dataset(segment_no_dev, segment_no_test, source_file, target_file):
         sf.write("\n".join(line for line in df_dic_dev['Source']))
         sf.write("\n") # end of file newline
         
+    with open(source2_file_dev, "w") as sf:
+        sf.write("\n".join(line for line in df_dic_dev['Source2']))
+        sf.write("\n") # end of file newline
+        
     with open(target_file_dev, "w", encoding='utf-8') as tf:
         tf.write("\n".join(line for line in df_dic_dev['Target']))
         tf.write("\n") # end of file newline
@@ -86,6 +102,10 @@ def split_dataset(segment_no_dev, segment_no_test, source_file, target_file):
         sf.write("\n".join(line for line in df_dic_test['Source']))
         sf.write("\n") # end of file newline
         
+    with open(source2_file_test, "w") as sf:
+        sf.write("\n".join(line for line in df_dic_test['Source2']))
+        sf.write("\n") # end of file newline
+        
     with open(target_file_test, "w", encoding='utf-8') as tf:
         tf.write("\n".join(line for line in df_dic_test['Target']))
         tf.write("\n") # end of file newline
@@ -93,7 +113,7 @@ def split_dataset(segment_no_dev, segment_no_test, source_file, target_file):
 
     print("--- Wrote Files")
     print("Done!")
-    print("Output files", *[source_file_train, target_file_train, source_file_dev, target_file_dev, source_file_test, target_file_test], sep="\n")
+    print("Output files", *[source_file_train, source2_file_train, target_file_train, source_file_dev, source2_file_dev, target_file_dev, source_file_test, source2_file_test, target_file_test], sep="\n")
 
 
 
@@ -101,6 +121,7 @@ if __name__ == "__main__":
   segment_no_dev = sys.argv[1]    # Number of segments in the dev set
   segment_no_test = sys.argv[2]    # Number of segments in the test set
   source_file = sys.argv[3]   # Path to the source file
-  target_file = sys.argv[4]   # Path to the target file
+  source2_file = sys.argv[4]   # Path to the source file
+  target_file = sys.argv[5]   # Path to the target file
 
-  split_dataset(segment_no_dev, segment_no_test, source_file, target_file)
+  split_dataset(segment_no_dev, segment_no_test, source_file, source2_file, target_file)
