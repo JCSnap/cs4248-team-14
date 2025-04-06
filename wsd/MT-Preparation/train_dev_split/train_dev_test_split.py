@@ -87,7 +87,7 @@ def split_dataset(segment_no_dev, segment_no_test, source_file, source2_file, ta
         sf.write("\n".join(line for line in df_dic_dev['Source']))
         sf.write("\n") # end of file newline
         
-    with open(source2_file_dev, "w") as sf:
+    with open(source2_file_dev, "w", encoding='utf-8') as sf:
         sf.write("\n".join(line for line in df_dic_dev['Source2']))
         sf.write("\n") # end of file newline
         
@@ -102,7 +102,7 @@ def split_dataset(segment_no_dev, segment_no_test, source_file, source2_file, ta
         sf.write("\n".join(line for line in df_dic_test['Source']))
         sf.write("\n") # end of file newline
         
-    with open(source2_file_test, "w") as sf:
+    with open(source2_file_test, "w", encoding='utf-8') as sf:
         sf.write("\n".join(line for line in df_dic_test['Source2']))
         sf.write("\n") # end of file newline
         
