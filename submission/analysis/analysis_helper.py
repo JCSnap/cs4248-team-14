@@ -10,7 +10,7 @@ import jieba
 nltk.download('punkt')
 
 
-def save_analysis_to_parquet(df_sentences, df_mismatches, output_dir, salient=False):
+def save_analysis_to_parquet(df_sentences, df_mismatches, output_dir, model_type="base"):
     """
     Saves the analysis results to parquet files.
 
@@ -21,17 +21,16 @@ def save_analysis_to_parquet(df_sentences, df_mismatches, output_dir, salient=Fa
     - salient: Boolean flag to prefix filenames with 'salient_'.
     """
     os.makedirs(output_dir, exist_ok=True)
-    prefix = "salient_" if salient else ""
     sentences_file = os.path.join(
-        output_dir, f"{prefix}sentence_analysis.parquet")
+        output_dir, f"{model_type}_sentence_analysis.parquet")
     mismatches_file = os.path.join(
-        output_dir, f"{prefix}word_mismatch_analysis.parquet")
+        output_dir, f"{model_type}_word_mismatch_analysis.parquet")
 
     df_sentences.to_parquet(sentences_file)
     df_mismatches.to_parquet(mismatches_file)
 
 
-def analyze_translations(en_path, zh_trans_path, zh_correct_path, salient=False):
+def analyze_translations(en_path, zh_trans_path, zh_correct_path, save_path, model_type="base"):
     """
     Analyzes translations using BLEU, METEOR and edit distance metrics.
 
@@ -69,6 +68,7 @@ def analyze_translations(en_path, zh_trans_path, zh_correct_path, salient=False)
             dist = edit_distance(zh_line, zh_correct_line)
 
             sentence_results.append({
+
                 'English': en_line,
                 'Chinese (model)': zh_line,
                 'Chinese (correct)': zh_correct_line,
@@ -89,7 +89,7 @@ def analyze_translations(en_path, zh_trans_path, zh_correct_path, salient=False)
         by='MismatchCount', ascending=False, inplace=True)
 
     save_analysis_to_parquet(df_sentences, df_mismatches,
-                             './analysis_results', salient=salient)
+                             save_path, model_type)
 
     return df_sentences, df_mismatches
 
