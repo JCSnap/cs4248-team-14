@@ -1,0 +1,18 @@
+@startuml
+package "IWLST Dataset" {
+    [EN] as en
+    [ZH] as zh
+}
+[WSD model] as wsd #LightGray
+en --> wsd
+[EN + WSD] as en_wsd
+wsd --> en_wsd
+[OpenNMT model] as onmt #LightGray
+[EN + WSD + Salient] as en_wsd_salient
+en_wsd --> en_wsd_salient : "  sliding window + tf-idf"
+en_wsd_salient --> onmt
+zh --> onmt
+[BLEU] as bleu
+onmt --> bleu : "  evaluate"
+
+@enduml
