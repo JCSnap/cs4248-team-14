@@ -104,9 +104,10 @@ def prepare(source_file, target_file, source_lang, target_lang, lower=False):
 
     print("--- Rows with Empty Cells Deleted\t--> Rows:", df.shape[0])
 
+
     # Write the dataframe to two Source and Target files
-    source_file = source_file+'-filtered.'+source_lang
-    target_file = target_file+'-filtered.'+target_lang
+    source_file = source_file+'-filtered-wsd.'+source_lang
+    target_file = target_file+'-filtered-wsd.'+target_lang
 
 
     # Save source and target to two text files

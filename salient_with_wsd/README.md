@@ -1,1 +1,1 @@
-code for using the salient words and pseudo docuent metohd
+code for training wsd model and mounting on opennmt

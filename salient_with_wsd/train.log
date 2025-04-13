@@ -1,0 +1,186 @@
+[2025-04-13 06:01:05,997 WARNING] Corpus corpus_1's weight should be given. We default it to 1 for you.
+[2025-04-13 06:01:05,997 INFO] Parsed 2 corpora from -data.
+[2025-04-13 06:01:05,997 INFO] Get special vocabs from Transforms: {'src': [], 'tgt': []}.
+[2025-04-13 06:01:06,104 INFO] The first 10 tokens of the vocabs are:['<unk>', '<blank>', '<s>', '</s>', '▁the', '▁to', '▁of', '▁and', '▁that', '.']
+[2025-04-13 06:01:06,104 INFO] The decoder start token is: <s>
+[2025-04-13 06:01:06,104 INFO] Building model...
+[2025-04-13 06:01:06,640 INFO] Switching model to float32 for amp/apex_amp
+[2025-04-13 06:01:06,640 INFO] Non quantized layer compute is fp16
+[2025-04-13 06:01:06,753 INFO] NMTModel(
+  (encoder): TransformerEncoder(
+    (embeddings): Embeddings(
+      (make_embedding): Sequential(
+        (emb_luts): Elementwise(
+          (0): Embedding(10000, 512, padding_idx=1)
+        )
+        (pe): PositionalEncoding()
+      )
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+    (transformer): ModuleList(
+      (0-5): 6 x TransformerEncoderLayer(
+        (self_attn): MultiHeadedAttention(
+          (linear_keys): Linear(in_features=512, out_features=512, bias=False)
+          (linear_values): Linear(in_features=512, out_features=512, bias=False)
+          (linear_query): Linear(in_features=512, out_features=512, bias=False)
+          (softmax): Softmax(dim=-1)
+          (dropout): Dropout(p=0.1, inplace=False)
+          (final_linear): Linear(in_features=512, out_features=512, bias=False)
+        )
+        (feed_forward): PositionwiseFeedForward(
+          (w_1): Linear(in_features=512, out_features=2048, bias=False)
+          (w_2): Linear(in_features=2048, out_features=512, bias=False)
+          (layer_norm): LayerNorm((512,), eps=1e-06, elementwise_affine=True)
+          (dropout_1): Dropout(p=0.1, inplace=False)
+          (dropout_2): Dropout(p=0.1, inplace=False)
+        )
+        (layer_norm): LayerNorm((512,), eps=1e-06, elementwise_affine=True)
+        (dropout): Dropout(p=0.1, inplace=False)
+      )
+    )
+    (layer_norm): LayerNorm((512,), eps=1e-06, elementwise_affine=True)
+  )
+  (decoder): TransformerDecoder(
+    (embeddings): Embeddings(
+      (make_embedding): Sequential(
+        (emb_luts): Elementwise(
+          (0): Embedding(10000, 512, padding_idx=1)
+        )
+        (pe): PositionalEncoding()
+      )
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+    (layer_norm): LayerNorm((512,), eps=1e-06, elementwise_affine=True)
+    (transformer_layers): ModuleList(
+      (0-5): 6 x TransformerDecoderLayer(
+        (self_attn): MultiHeadedAttention(
+          (linear_keys): Linear(in_features=512, out_features=512, bias=False)
+          (linear_values): Linear(in_features=512, out_features=512, bias=False)
+          (linear_query): Linear(in_features=512, out_features=512, bias=False)
+          (softmax): Softmax(dim=-1)
+          (dropout): Dropout(p=0.1, inplace=False)
+          (final_linear): Linear(in_features=512, out_features=512, bias=False)
+        )
+        (feed_forward): PositionwiseFeedForward(
+          (w_1): Linear(in_features=512, out_features=2048, bias=False)
+          (w_2): Linear(in_features=2048, out_features=512, bias=False)
+          (layer_norm): LayerNorm((512,), eps=1e-06, elementwise_affine=True)
+          (dropout_1): Dropout(p=0.1, inplace=False)
+          (dropout_2): Dropout(p=0.1, inplace=False)
+        )
+        (layer_norm_1): LayerNorm((512,), eps=1e-06, elementwise_affine=True)
+        (dropout): Dropout(p=0.1, inplace=False)
+        (context_attn): MultiHeadedAttention(
+          (linear_keys): Linear(in_features=512, out_features=512, bias=False)
+          (linear_values): Linear(in_features=512, out_features=512, bias=False)
+          (linear_query): Linear(in_features=512, out_features=512, bias=False)
+          (softmax): Softmax(dim=-1)
+          (dropout): Dropout(p=0.1, inplace=False)
+          (final_linear): Linear(in_features=512, out_features=512, bias=False)
+        )
+        (layer_norm_2): LayerNorm((512,), eps=1e-06, elementwise_affine=True)
+      )
+    )
+  )
+  (generator): Linear(in_features=512, out_features=10000, bias=True)
+)
+[2025-04-13 06:01:06,756 INFO] encoder: 24007680
+[2025-04-13 06:01:06,756 INFO] decoder: 35435280
+[2025-04-13 06:01:06,756 INFO] * number of parameters: 59442960
+[2025-04-13 06:01:06,756 INFO] Trainable parameters = {'torch.float32': 59442960, 'torch.float16': 0, 'torch.uint8': 0, 'torch.int8': 0}
+[2025-04-13 06:01:06,756 INFO] Non trainable parameters = {'torch.float32': 0, 'torch.float16': 0, 'torch.uint8': 0, 'torch.int8': 0}
+[2025-04-13 06:01:06,756 INFO]  * src vocab size = 10000
+[2025-04-13 06:01:06,756 INFO]  * tgt vocab size = 10000
+[2025-04-13 07:19:12,207 WARNING] Corpus corpus_1's weight should be given. We default it to 1 for you.
+[2025-04-13 07:19:12,207 INFO] Parsed 2 corpora from -data.
+[2025-04-13 07:19:12,207 INFO] Get special vocabs from Transforms: {'src': [], 'tgt': []}.
+[2025-04-13 07:19:12,319 INFO] The first 10 tokens of the vocabs are:['<unk>', '<blank>', '<s>', '</s>', '▁', '__SEP__', '▁the', '▁to', 's', '▁of']
+[2025-04-13 07:19:12,319 INFO] The decoder start token is: <s>
+[2025-04-13 07:19:12,319 INFO] Building model...
+[2025-04-13 07:19:12,854 INFO] Switching model to float32 for amp/apex_amp
+[2025-04-13 07:19:12,854 INFO] Non quantized layer compute is fp16
+[2025-04-13 07:19:12,963 INFO] NMTModel(
+  (encoder): TransformerEncoder(
+    (embeddings): Embeddings(
+      (make_embedding): Sequential(
+        (emb_luts): Elementwise(
+          (0): Embedding(10000, 512, padding_idx=1)
+        )
+        (pe): PositionalEncoding()
+      )
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+    (transformer): ModuleList(
+      (0-5): 6 x TransformerEncoderLayer(
+        (self_attn): MultiHeadedAttention(
+          (linear_keys): Linear(in_features=512, out_features=512, bias=False)
+          (linear_values): Linear(in_features=512, out_features=512, bias=False)
+          (linear_query): Linear(in_features=512, out_features=512, bias=False)
+          (softmax): Softmax(dim=-1)
+          (dropout): Dropout(p=0.1, inplace=False)
+          (final_linear): Linear(in_features=512, out_features=512, bias=False)
+        )
+        (feed_forward): PositionwiseFeedForward(
+          (w_1): Linear(in_features=512, out_features=2048, bias=False)
+          (w_2): Linear(in_features=2048, out_features=512, bias=False)
+          (layer_norm): LayerNorm((512,), eps=1e-06, elementwise_affine=True)
+          (dropout_1): Dropout(p=0.1, inplace=False)
+          (dropout_2): Dropout(p=0.1, inplace=False)
+        )
+        (layer_norm): LayerNorm((512,), eps=1e-06, elementwise_affine=True)
+        (dropout): Dropout(p=0.1, inplace=False)
+      )
+    )
+    (layer_norm): LayerNorm((512,), eps=1e-06, elementwise_affine=True)
+  )
+  (decoder): TransformerDecoder(
+    (embeddings): Embeddings(
+      (make_embedding): Sequential(
+        (emb_luts): Elementwise(
+          (0): Embedding(10000, 512, padding_idx=1)
+        )
+        (pe): PositionalEncoding()
+      )
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+    (layer_norm): LayerNorm((512,), eps=1e-06, elementwise_affine=True)
+    (transformer_layers): ModuleList(
+      (0-5): 6 x TransformerDecoderLayer(
+        (self_attn): MultiHeadedAttention(
+          (linear_keys): Linear(in_features=512, out_features=512, bias=False)
+          (linear_values): Linear(in_features=512, out_features=512, bias=False)
+          (linear_query): Linear(in_features=512, out_features=512, bias=False)
+          (softmax): Softmax(dim=-1)
+          (dropout): Dropout(p=0.1, inplace=False)
+          (final_linear): Linear(in_features=512, out_features=512, bias=False)
+        )
+        (feed_forward): PositionwiseFeedForward(
+          (w_1): Linear(in_features=512, out_features=2048, bias=False)
+          (w_2): Linear(in_features=2048, out_features=512, bias=False)
+          (layer_norm): LayerNorm((512,), eps=1e-06, elementwise_affine=True)
+          (dropout_1): Dropout(p=0.1, inplace=False)
+          (dropout_2): Dropout(p=0.1, inplace=False)
+        )
+        (layer_norm_1): LayerNorm((512,), eps=1e-06, elementwise_affine=True)
+        (dropout): Dropout(p=0.1, inplace=False)
+        (context_attn): MultiHeadedAttention(
+          (linear_keys): Linear(in_features=512, out_features=512, bias=False)
+          (linear_values): Linear(in_features=512, out_features=512, bias=False)
+          (linear_query): Linear(in_features=512, out_features=512, bias=False)
+          (softmax): Softmax(dim=-1)
+          (dropout): Dropout(p=0.1, inplace=False)
+          (final_linear): Linear(in_features=512, out_features=512, bias=False)
+        )
+        (layer_norm_2): LayerNorm((512,), eps=1e-06, elementwise_affine=True)
+      )
+    )
+  )
+  (generator): Linear(in_features=512, out_features=10000, bias=True)
+)
+[2025-04-13 07:19:12,966 INFO] encoder: 24007680
+[2025-04-13 07:19:12,966 INFO] decoder: 35435280
+[2025-04-13 07:19:12,966 INFO] * number of parameters: 59442960
+[2025-04-13 07:19:12,966 INFO] Trainable parameters = {'torch.float32': 59442960, 'torch.float16': 0, 'torch.uint8': 0, 'torch.int8': 0}
+[2025-04-13 07:19:12,966 INFO] Non trainable parameters = {'torch.float32': 0, 'torch.float16': 0, 'torch.uint8': 0, 'torch.int8': 0}
+[2025-04-13 07:19:12,966 INFO]  * src vocab size = 10000
+[2025-04-13 07:19:12,966 INFO]  * tgt vocab size = 10000

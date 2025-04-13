@@ -1,1 +1,0 @@
-code for training wsd model and mounting on opennmt
