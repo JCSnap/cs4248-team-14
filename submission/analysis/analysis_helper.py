@@ -82,9 +82,10 @@ def analyze_translations(en_path, zh_trans_path, zh_correct_path, save_path, mod
             })
 
             # Tally missing words from the reference that do not appear in the model output
-            for word in zh_correct_pos:
+            for token in zh_correct_pos:
+                word = token.word  # Extract the word from the posseg object
                 if word not in zh_tokens:
-                    word_mismatches[word] += 1
+                    word_mismatches[(word, token.flag)] += 1
 
     df_sentences = pd.DataFrame(sentence_results)
     df_mismatches = pd.DataFrame(
