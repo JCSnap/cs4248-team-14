@@ -9,6 +9,9 @@ import pandas as pd
 import jieba
 
 nltk.download('punkt')
+nltk.download('averaged_perceptron_tagger')
+nltk.download('maxent_ne_chunker_tab')
+nltk.download('words')
 
 
 def save_analysis_to_parquet(df_sentences, df_mismatches, output_dir, model_type="base"):
@@ -100,4 +103,22 @@ def analyze_translations(en_path, zh_trans_path, zh_correct_path, save_path, mod
 
     return df_sentences, df_mismatches
 
-# def run_analysis():
+
+def contains_name(text):
+    """
+    Checks if the given text contains any person names using NLTK's named entity recognition.
+
+    Parameters:
+    - text: String containing the English sentence.
+
+    Returns:
+    - bool: True if at least one name is found, False otherwise.
+    """
+    tokens = nltk.word_tokenize(text)
+    pos_tags = nltk.pos_tag(tokens)
+    chunk_tree = nltk.ne_chunk(pos_tags, binary=False)
+
+    for subtree in chunk_tree:
+        if hasattr(subtree, 'label') and subtree.label() == 'PERSON':
+            return True
+    return False
