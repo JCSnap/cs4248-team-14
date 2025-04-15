@@ -10,6 +10,25 @@ We will evaluate our methods on the 2017 IWSLT dataset, which contains parallel 
 
 ## Folder Structure
 
+```bash
+├── backbone/
+│   ├── en-zh-opennmt/
+|   ├── MT-preperation/
+│   ├── run/
+│   ├── 1_preprocessing.ipynb
+│   ├── 2_training.ipynb
+│   ├── 3_analysis.ipynb
+│   ├── 4_data_preparation.ipynb
+│   ...
+├── pos_tagging/
+├── ...
+├── submission/
+│   ├── analysis/
+├── ├── ├── high_level_analysis.ipynb
+│   ├── diagrams/
+├── wsd/
+```
+
 ## Setup
 
 ### Install dependencies
