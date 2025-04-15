@@ -104,21 +104,42 @@ def analyze_translations(en_path, zh_trans_path, zh_correct_path, save_path, mod
     return df_sentences, df_mismatches
 
 
-def contains_name(text):
+def contains_named_entity(text):
     """
-    Checks if the given text contains any person names using NLTK's named entity recognition.
+    Checks if the given text contains any named entities using NLTK's named entity recognition.
 
     Parameters:
     - text: String containing the English sentence.
 
     Returns:
-    - bool: True if at least one name is found, False otherwise.
+    - bool: True if at least one named entity is found, False otherwise.
     """
     tokens = nltk.word_tokenize(text)
     pos_tags = nltk.pos_tag(tokens)
     chunk_tree = nltk.ne_chunk(pos_tags, binary=False)
 
+    # Any subtree that's a Tree represents a named entity
     for subtree in chunk_tree:
-        if hasattr(subtree, 'label') and subtree.label() == 'PERSON':
+        if isinstance(subtree, nltk.Tree):
+            return True
+    return False
+
+
+def contains_noun(text):
+    """
+    Checks if the given text contains at least one noun using NLTK's part-of-speech tagging.
+
+    Parameters:
+    - text: String containing the English sentence.
+
+    Returns:
+    - bool: True if at least one noun is found, False otherwise.
+    """
+    tokens = nltk.word_tokenize(text)
+    pos_tags = nltk.pos_tag(tokens)
+
+    # Check if any token has a noun tag (NN, NNS, NNP, NNPS)
+    for word, tag in pos_tags:
+        if tag.startswith('NN'):
             return True
     return False
