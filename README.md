@@ -1,11 +1,17 @@
 # CS4248 Team 14
 
-## Interesting Readings
+# 🔬🌐 IWSLT Dataset: Resolving Polysemous Words in Neural Machine Translation
 
-[Improving Word Sense Disambiguation in Neural Machine Translation with Salient Document Context](https://arxiv.org/pdf/2311.15507)
+## Abstract
 
--   create pseudo documents, most of the hard work is done at the preprocessing steps instead of having to modify the actual model. We can use the previous x sentences on our IWSLT dataset since the dataset is sequential.
+The goal of this project is to improve the performance of neural machine translation (NMT) systems by addressing the challenge of polysemy in source languages. Polysemous words can have multiple meanings depending on their context, which can lead to incorrect translations. We propose a novel approach that leverages contextual information from surrounding sentences to disambiguate polysemous words and enhance translation accuracy.
 
-[Improving Word Sense Disambiguation in Neural Machine Translation with Sense Embeddings](https://aclanthology.org/W17-4702.pdf)
+## Folder Structure
 
--   create a word sense classifier? and inject into the actual model.
+## Setup
+
+### Install dependencies
+
+### Running the translation model
+
+## Acknowledgments
