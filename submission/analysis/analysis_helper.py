@@ -48,9 +48,9 @@ def analyze_translations(en_path, zh_trans_path, zh_correct_path, save_path, mod
     - df_sentences: DataFrame containing sentence-level analysis.
     - df_mismatches: DataFrame containing word mismatch counts.
     """
-    sentence_results = []  # To store sentence-level metrics
-    word_mismatches = defaultdict(int)  # To tally missing/mistranslated words
-    smoothing = SmoothingFunction().method1  # Smoothing for sentence-level BLEU
+    sentence_results = []
+    word_mismatches = defaultdict(int)
+    smoothing = SmoothingFunction().method1
 
     with open(en_path, 'r', encoding='utf-8') as en_file, \
             open(zh_trans_path, 'r', encoding='utf-8') as zh_file, \
@@ -66,7 +66,6 @@ def analyze_translations(en_path, zh_trans_path, zh_correct_path, save_path, mod
             zh_correct_pos = list(posseg.cut(zh_correct_line))
             zh_correct_words = [
                 token.word for token in zh_correct_pos]  # For metrics
-            # zh_correct_tokens = list(jieba.cut(zh_correct_line))
 
             # Compute the sentence-level scores.
             meteor = meteor_score([zh_correct_words], zh_tokens)
