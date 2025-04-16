@@ -6,4 +6,4 @@
 
 [Improving Word Sense Disambiguation in Neural Machine Translation with Sense Embeddings](https://aclanthology.org/W17-4702.pdf)
 
-- create a word sense classifier? and inject into the actual model.
+- create a word sense classifier or use a pertrained model and inject into the actual model.
