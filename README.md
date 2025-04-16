@@ -44,10 +44,10 @@ Within `backbone/en-zh-opennmt/`, `pos_tagging/`, and `wsd/`, `salient/`, and `s
 │   ├── 4_data_preparation.ipynb
 ```
 
-1. `1_preprocessing.ipynb`: This notebook is used to preprocess the IWSLT dataset, including tokenization and subword segmentation.
-2. `2_training.ipynb`: Training the translation model using the preprocessed data. It includes the implementation of the transformer model and the training loop, as well as evaluation with BLEU scores.
-3. `3_analysis.ipynb`: The notebook highlights the strengths and weaknesses of each method in terms of semantic accuracy, fluency, and error types. It also includes visualizations of the results and comparisons with the baseline model. Please check `submission\analysis\high_level_analysis.ipynb` for the final analysis.
-4. `4_data_preparation.ipynb`: This notebook is used to prepare data by extracting and splitting sentence pairs from CSV files, then writes the processed sentences into separate English and Chinese files.
+1. `1_preprocessing.ipynb`: Used to preprocess the IWSLT dataset, including tokenization and subword segmentation.
+2. `2_training.ipynb`: Trains the translation model using the preprocessed data. It includes the implementation of the transformer model and the training loop, as well as evaluation with BLEU scores.
+3. `3_analysis.ipynb`: Highlights the strengths and weaknesses of each method in terms of semantic accuracy, fluency, and error types. It also includes visualizations of the results and comparisons with the baseline model. Please check `submission\analysis\high_level_analysis.ipynb` for the final analysis.
+4. `4_data_preparation.ipynb`: Used to prepare data by extracting and splitting sentence pairs from CSV files, then writes the processed sentences into separate English and Chinese files.
 
 #### Data:
 
