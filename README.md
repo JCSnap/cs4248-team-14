@@ -73,7 +73,7 @@ pip install -r requirements.txt
 
 ### Finetuning the translation model
 
-The translation model is finetuned using the OpenNMT library. The training script for each method located in `~/2_training.ipynb`.
+The translation model is finetuned using the OpenNMT library. The training script for each method is located in `~/2_training.ipynb`.
 
 > **_NOTE:_**
 > To train the WSD model, `wsd.py` must be run first to generate the augmented dataset.
